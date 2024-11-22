@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { Firestore, collection, addDoc } from '@angular/fire/firestore';
+
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +13,7 @@ export class ApiService {
   private PerroApi = 'https://dog.ceo/api/breed/affenpinscher/images/random';
   private RobotApi = 'https://robohash.org/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private firestore: Firestore) {}
 
   // Obtener libros
   getLibros(): Observable<string[]> {
@@ -34,17 +36,11 @@ export class ApiService {
     }
   }
 
-  // Obtener libros combinados con imágenes
-  getLibrosconImagenes(): Observable<{ title: string; image: string }[]> {
-    return this.getLibros().pipe(
-      switchMap((titles) => {
-        const requests = titles.map((title, index) =>
-          this.getImagen(index).pipe(
-            map((image) => ({ title, image }))
-          )
-        );
-        return forkJoin(requests);
-      })
-    );
+  // Guardar string en Firebase
+  guardarenFirebase(data: string): Promise<void> {
+    const ColeccionLibro = collection(this.firestore, 'books');
+    return addDoc(ColeccionLibro, { value: data })
+      .then(() => console.log('Guardado en Firebase:', data))
+      .catch((error) => console.error('Error al guardar:', error));
   }
 }
