@@ -12,7 +12,7 @@ export class HomePage implements OnInit {
   constructor(private apiService: ApiService) {}
 
   ngOnInit() {
-    this.apiService.getBooksWithImages().subscribe((data) => {
+    this.apiService.getLibrosconImagenes().subscribe((data) => {
       this.items = data;
     });
   }

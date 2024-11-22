@@ -7,39 +7,39 @@ import { map, switchMap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class ApiService {
-  private bookApi = 'https://gutendex.com/books?ids=1,2,3,4,5,6,7,8,9,10';
-  private dogApi = 'https://dog.ceo/api/breed/affenpinscher/images/random';
-  private robotApi = 'https://robohash.org/';
+  private LibroApi = 'https://gutendex.com/books?ids=1,2,3,4,5,6,7,8,9,10';
+  private PerroApi = 'https://dog.ceo/api/breed/affenpinscher/images/random';
+  private RobotApi = 'https://robohash.org/';
 
   constructor(private http: HttpClient) {}
 
   // Obtener libros
-  getBooks(): Observable<string[]> {
-    return this.http.get<any>(this.bookApi).pipe(
-      map((response) => response.results.map((book: any) => book.title))
+  getLibros(): Observable<string[]> {
+    return this.http.get<any>(this.LibroApi).pipe(
+      map((response) => response.results.map((libro: any) => libro.title))
     );
   }
 
   // Obtener imagen
-  getImage(index: number): Observable<string> {
+  getImagen(index: number): Observable<string> {
     if (index % 2 === 0) {
-      return this.http.get<{ message: string }>(this.dogApi).pipe(
+      return this.http.get<{ message: string }>(this.PerroApi).pipe(
         map((res) => res.message)
       );
     } else {
       return new Observable((observer) => {
-        observer.next(`${this.robotApi}${index}.png`);
+        observer.next(`${this.RobotApi}${index}.png`);
         observer.complete();
       });
     }
   }
 
   // Obtener libros combinados con imágenes
-  getBooksWithImages(): Observable<{ title: string; image: string }[]> {
-    return this.getBooks().pipe(
+  getLibrosconImagenes(): Observable<{ title: string; image: string }[]> {
+    return this.getLibros().pipe(
       switchMap((titles) => {
         const requests = titles.map((title, index) =>
-          this.getImage(index).pipe(
+          this.getImagen(index).pipe(
             map((image) => ({ title, image }))
           )
         );
