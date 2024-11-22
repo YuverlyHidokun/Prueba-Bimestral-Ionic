@@ -20,7 +20,7 @@ export class ApiService {
     );
   }
 
-  // Obtener imagen (random entre perro o robot)
+  // Obtener imagen
   getImage(index: number): Observable<string> {
     if (index % 2 === 0) {
       return this.http.get<{ message: string }>(this.dogApi).pipe(

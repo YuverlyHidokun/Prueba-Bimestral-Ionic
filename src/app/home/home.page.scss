@@ -25,3 +25,42 @@
 #container a {
   text-decoration: none;
 }
+
+.container {
+  padding: 1rem;
+}
+
+ion-card {
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .image {
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+}
+
+ion-card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #3d3d3d;
+}
+
+ion-card-content p {
+  font-size: 0.9rem;
+  color: #6b6b6b;
+}
+
+@media (max-width: 768px) {
+  .image {
+    height: 150px;
+  }
+}
