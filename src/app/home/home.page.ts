@@ -7,29 +7,52 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  items: { title: string; image: string }[] = [];
+  books: any[] = [];
+  loading: boolean = true;
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit() {
-    this.cargarItems()
-  
+    this.loadBooks();
   }
-  cargarItems(){
-    this.apiService.getLibros().subscribe((titles) => {
-      titles.forEach((title, index) => {
-        this.apiService.getImagen(index).subscribe((image) => {
-          this.items.push({ title, image });
-        });
+
+  loadBooks() {
+    this.apiService.getLibros().subscribe((data: any) => {
+      this.books = data.results; 
+      this.books.forEach((book, index) => {
+        if (index % 2 === 0) {
+
+          this.apiService.getRandomDog().subscribe((dogData: any) => {
+            book.dogImage = dogData.message; 
+            this.checkIfLoadingFinished();
+          });
+        } else {
+
+          this.apiService.getRandomRobot(book.title).subscribe((robotBlob: Blob) => {
+            book.robotImage = URL.createObjectURL(robotBlob);
+            this.checkIfLoadingFinished(); 
+          });
+        }
       });
     });
   }
 
-  // Guardar en Firebase
-  saveItem(data: string) {
-    this.apiService
-      .guardarenFirebase(data)
-      .then(() => alert('Guardado: ' + data))
-      .catch((error) => alert('Error al guardar: ' + error));
+  checkIfLoadingFinished() {
+    if (this.books.every(book => book.dogImage || book.robotImage)) {
+      this.loading = false;
+    }
+  }
+
+  saveBook(book: any) {
+    const bookData = {
+      title: book.title,
+      image: book.dogImage || book.robotImage
+    };
+
+    this.apiService.saveBook(bookData).then(() => {
+      alert('Se guardó el libro exitosamente!');
+    }).catch((error) => {
+      alert('No se pudo guardar el libro');
+    });
   }
 }

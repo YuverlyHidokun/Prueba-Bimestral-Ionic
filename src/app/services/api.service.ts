@@ -1,46 +1,32 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, forkJoin } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { Firestore, collection, addDoc } from '@angular/fire/firestore';
-
+import { Observable } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/compat/firestore'; // Importa la versión compatible con Angular Fire
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ApiService {
-  private LibroApi = 'https://gutendex.com/books?ids=1,2,3,4,5,6,7,8,9,10';
-  private PerroApi = 'https://dog.ceo/api/breed/affenpinscher/images/random';
-  private RobotApi = 'https://robohash.org/';
 
-  constructor(private http: HttpClient, private firestore: Firestore) {}
+  private bookUrl = 'https://gutendex.com/books?ids=2,4,6,8,10,12,14,16,18,20';
+  private dogUrl = 'https://dog.ceo/api/breed/beagle/images/random';
+  private robotUrl = 'https://robohash.org/hola';
 
-  // Obtener libros
-  getLibros(): Observable<string[]> {
-    return this.http.get<any>(this.LibroApi).pipe(
-      map((response) => response.results.map((libro: any) => libro.title))
-    );
+  constructor(private http: HttpClient, private firestore: AngularFirestore) { }
+
+  getLibros(): Observable<any> {
+    return this.http.get(this.bookUrl);
   }
 
-  // Obtener imagen
-  getImagen(index: number): Observable<string> {
-    if (index % 2 === 0) {
-      return this.http.get<{ message: string }>(this.PerroApi).pipe(
-        map((res) => res.message)
-      );
-    } else {
-      return new Observable((observer) => {
-        observer.next(`${this.RobotApi}${index}.png`);
-        observer.complete();
-      });
-    }
+  getRandomDog(): Observable<any> {
+    return this.http.get(this.dogUrl);
   }
 
-  // Guardar string en Firebase
-  guardarenFirebase(data: string): Promise<void> {
-    const ColeccionLibro = collection(this.firestore, 'books');
-    return addDoc(ColeccionLibro, { value: data })
-      .then(() => console.log('Guardado en Firebase:', data))
-      .catch((error) => console.error('Error al guardar:', error));
+  getRandomRobot(title: string): Observable<any> {
+    return this.http.get(`https://robohash.org/${title}`, { responseType: 'blob' });
+  }
+
+  saveBook(book: any) {
+    return this.firestore.collection('Libros').add(book);
   }
 }

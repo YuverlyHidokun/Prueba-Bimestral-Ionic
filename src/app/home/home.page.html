@@ -5,21 +5,21 @@
 </ion-header>
 
 <ion-content>
-  <div class="container">
-    <ion-list>
-      <ion-item *ngFor="let item of items">
-        <ion-label>
-          <h2>{{ item.title }}</h2>
-          <p>{{ item.image.includes('robohash') ? 'Robot' : 'Perrito' }}</p>
-        </ion-label>
-        <ion-button
-          slot="end"
-          color="success"
-          (click)="saveItem(item.title + ' - ' + item.image)"
-        >
-          Guardar
-        </ion-button>
-      </ion-item>
-    </ion-list>
-  </div>
+  <ion-list>
+    <ion-item *ngFor="let book of books">
+      <ion-card class="book-card">
+        <ion-card-header>
+          <ion-card-title>{{ book.title }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <div class="image-container">
+            <img *ngIf="book.dogImage" [src]="book.dogImage" alt="Dog Image" />
+            <img *ngIf="book.robotImage" [src]="book.robotImage" alt="Robot Image" />
+          </div>
+          <ion-button (click)="saveBook(book)" class="save-button">Save</ion-button>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list>
 </ion-content>
