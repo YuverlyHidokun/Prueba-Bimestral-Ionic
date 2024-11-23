@@ -9,58 +9,93 @@
 }
 
 #container strong {
-  font-size: 20px;
-  line-height: 26px;
+  font-size: 24px;
+  line-height: 32px;
+  color: #7e57c2; /* Lavanda */
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
 }
 
 #container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+  font-size: 18px;
+  line-height: 26px;
+  color: #d1c4e9; /* Lila pastel */
+  margin: 0.5rem 0;
 }
 
 #container a {
   text-decoration: none;
+  font-weight: bold;
+  color: #b39ddb; /* Lavanda oscuro */
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #512da8; /* Morado profundo */
+  }
 }
 
 .container {
-  padding: 1rem;
+  padding: 2rem;
+  background-color: #f3e5f5; /* Fondo lila claro */
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(79, 60, 157, 0.15); /* Sombra suave */
 }
 
 ion-card {
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0px 6px 8px rgba(126, 87, 194, 0.2); /* Sombra morado */
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0px 8px 14px rgba(126, 87, 194, 0.3);
   }
 
   .image {
-    height: 200px;
+    height: 220px;
     object-fit: cover;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      opacity: 0.9;
+    }
   }
 }
 
 ion-card-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #3d3d3d;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #673ab7; /* Púrpura */
+  margin: 1rem 0 0.5rem;
 }
 
 ion-card-content p {
-  font-size: 0.9rem;
-  color: #6b6b6b;
+  font-size: 1rem;
+  color: #9575cd; /* Morado intermedio */
+  line-height: 1.5;
 }
 
 @media (max-width: 768px) {
   .image {
-    height: 150px;
+    height: 160px;
+  }
+
+  #container strong {
+    font-size: 20px;
+  }
+
+  #container p {
+    font-size: 16px;
+  }
+
+  ion-card-title {
+    font-size: 1.2rem;
+  }
+
+  ion-card-content p {
+    font-size: 0.9rem;
   }
 }
