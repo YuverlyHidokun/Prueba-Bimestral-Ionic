@@ -10,11 +10,11 @@
 
 ### Lista de perros, robots y libros
 
-![perros](https://github.com/YuverlyHidokun/Prueba-Bimestral-Ionic/blob/master/src/assets/imagen1.png?raw=true)
+![perros]([https://github.com/YuverlyHidokun/Prueba-Bimestral-Ionic/blob/master/src/assets/imagen1.png?raw=true](https://github.com/YuverlyHidokun/Prueba-Bimestral-Ionic/blob/master/src/assets/Capturas/imagen1.png?raw=true))
 
 ### Guardado en Firebase
 
-![storage](https://github.com/YuverlyHidokun/Prueba-Bimestral-Ionic/blob/master/src/assets/imagen2.png?raw=true)
+![storage]([https://github.com/YuverlyHidokun/Prueba-Bimestral-Ionic/blob/master/src/assets/imagen2.png?raw=true](https://github.com/YuverlyHidokun/Prueba-Bimestral-Ionic/blob/master/src/assets/Capturas/imagen2.png?raw=true))
 
 
 ## Pasos para configurar el Proyecto en Ionic 
